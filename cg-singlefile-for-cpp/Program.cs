@@ -8,19 +8,21 @@ namespace cg_singlefile_for_cpp
         static void Main(string[] args)
         {
             var cmd = new CommandLineApplication();
-            var dirArg = cmd.Option("-d | --dir <value>", "directory with the main file", CommandOptionType.SingleValue);
-            var mainArg = cmd.Option("-m | --main <value>", "main file name (relative)", CommandOptionType.SingleValue);
-            var outputArg = cmd.Option("-o | --output <value>", "output file", CommandOptionType.SingleValue);
+            cmd.Name = System.AppDomain.CurrentDomain.FriendlyName;
+            cmd.FullName = "Singlefile for cpp";
+            cmd.Description = "Converts mutiple cpp files into a single one";
+            var mainArg = cmd.Argument("main file", "The path to the entry point file (usually main.cpp)");
+            var outputArg = cmd.Option("-o | --output <value>", "output file path", CommandOptionType.SingleValue);
 
             cmd.OnExecute(() =>
             {
-                if (!dirArg.HasValue() || !mainArg.HasValue() || !outputArg.HasValue())
+                if (!outputArg.HasValue())
                 {
                     Console.WriteLine("Invalid arguments. See --help for usage guide.");
                     return -1;
                 }
-                var sourceProcessor = new SourceProcessor(new System.IO.DirectoryInfo(dirArg.Value()));
-                sourceProcessor.Process(mainArg.Value(), outputArg.Value());
+                var sourceProcessor = new SourceProcessor();
+                sourceProcessor.Process(mainArg.Value, outputArg.Value());
                 return 0;
             });
 

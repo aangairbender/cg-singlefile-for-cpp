@@ -9,25 +9,21 @@ namespace cg_singlefile_for_cpp
 {
     public class SourceProcessor
     {
-        private readonly DirectoryInfo sourceDir;
-
         private readonly Regex includeSrcRegex = new Regex("#include \"(.*)\"");
         private readonly Regex includeLibRegex = new Regex("#include <(.*)>");
 
         private readonly HashSet<string> includedSrc = new HashSet<string>();
         private readonly HashSet<string> includedLib = new HashSet<string>();
 
-        public SourceProcessor(DirectoryInfo sourceDir)
+        public SourceProcessor()
         {
-            this.sourceDir = sourceDir;
         }
 
-        public void Process(string rootFilename, string outputFile)
+        public void Process(string rootFile, string outputFile)
         {
             includedSrc.Clear();
             includedLib.Clear();
-            var rootFile = new FileInfo(Path.Combine(sourceDir.FullName, rootFilename));
-            var lines = UnfoldIncludes(rootFile);
+            var lines = UnfoldIncludes(new FileInfo(rootFile));
             File.WriteAllLines(outputFile, lines);
         }
 
