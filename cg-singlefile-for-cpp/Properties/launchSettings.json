@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "cg-singlefile-for-cpp": {
+      "commandName": "Project",
+      "commandLineArgs": "-d D:\\Projects\\2023-huawei-spring-challenge\\2023-huawei-spring-challenge -m main.cpp -o D:\\Projects\\2023-huawei-spring-challenge\\2023-huawei-spring-challenge\\bundled.txt"
+    }
+  }
+}
