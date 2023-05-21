@@ -16,9 +16,9 @@
 * Automatically skips lines containing `#pragma once`
 * Automatically skips lines starting with `//` (single-line comments).
 * If the line ends with "singlefile-skip-line" if will be skipped, e.g.
-```cpp
-#include "some_local_tool.h" // singlefile-skip-line
-```
+	```cpp
+	#include "some_local_tool.h" // singlefile-skip-line
+	```
 
 ## Building
 ```shell
