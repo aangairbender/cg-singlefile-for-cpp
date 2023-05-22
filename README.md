@@ -1,5 +1,5 @@
 # cg-singlefile-for-cpp
-![Build](https://github.com/aangairbender/cg-singlefile-for-cpp/actions/workflows/release.yml/badge.svg)
+![Build](https://github.com/aangairbender/cg-singlefile-for-cpp/actions/workflows/build.yml/badge.svg)
 
 ## Features
 
