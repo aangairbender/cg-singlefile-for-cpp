@@ -21,7 +21,7 @@ namespace cg_singlefile_for_cpp
                     Console.WriteLine("Invalid arguments. See --help for usage guide.");
                     return -1;
                 }
-                var sourceProcessor = new SourceProcessor();
+                var sourceProcessor = new SourceProcessor(new FileService());
                 sourceProcessor.Process(mainArg.Value, outputArg.Value());
                 return 0;
             });

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace cg_singlefile_for_cpp
@@ -15,8 +12,11 @@ namespace cg_singlefile_for_cpp
         private readonly HashSet<string> includedSrc = new HashSet<string>();
         private readonly HashSet<string> includedLib = new HashSet<string>();
 
-        public SourceProcessor()
+        private readonly IFileService fileService;
+
+        public SourceProcessor(IFileService fileService)
         {
+            this.fileService = fileService;
         }
 
         public void Process(string rootFile, string outputFile)
@@ -24,19 +24,18 @@ namespace cg_singlefile_for_cpp
             includedSrc.Clear();
             includedLib.Clear();
             var lines = UnfoldIncludes(new FileInfo(rootFile));
-            File.WriteAllLines(outputFile, lines);
+            fileService.WriteAllLines(outputFile, lines);
         }
 
         private List<string> UnfoldIncludes(FileInfo file)
         {
             includedSrc.Add(file.FullName);
             var result = new List<string>();
-            var lines = ReadLines(file.FullName);
+            var lines = fileService.ReadAllLines(file.FullName);
             foreach (var line in lines)
             {
-                if (line.EndsWith("singlefile-skip-line")) continue;
-
-                if (line.TrimStart().StartsWith("//")) continue;
+                var shouldSkip = IsManualSkip(line) || IsComment(line) || IsPragmaOnce(line);
+                if (shouldSkip) continue;
 
                 if (IsInclude(line, includeSrcRegex, out var includeFilename))
                 {
@@ -50,10 +49,6 @@ namespace cg_singlefile_for_cpp
                     includedLib.Add(includeLibFile);
                     result.Add(line);
                 }
-                else if (IsPragmaOnce(line))
-                {
-                    continue;
-                }
                 else
                 {
                     result.Add(line);
@@ -62,10 +57,9 @@ namespace cg_singlefile_for_cpp
             return result;
         }
 
-        private static bool IsPragmaOnce(string line)
-        {
-            return line.Trim() == "#pragma once";
-        }
+        private static bool IsManualSkip(string line) => line.TrimEnd().EndsWith("singlefile-skip-line");
+        private static bool IsComment(string line) => line.TrimStart().StartsWith("//");
+        private static bool IsPragmaOnce(string line) => line.Trim() == "#pragma once";
 
         private static bool IsInclude(string line, Regex regex, out string includeFile)
         {
@@ -79,11 +73,6 @@ namespace cg_singlefile_for_cpp
                 includeFile = null;
                 return false;
             }
-        }
-
-        private string[] ReadLines(string filepath)
-        {
-            return File.ReadAllLines(filepath);
         }
     }
 }
