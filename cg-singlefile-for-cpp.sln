@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F2351BEA-5B3F-4C7F-AA3D-AAA35EAE92E9}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cg-singlefile-for-cpp-tests", "cg-singlefile-for-cpp-tests\cg-singlefile-for-cpp-tests.csproj", "{3D8584C5-95A1-46C0-AB5C-25ED2B494324}"
