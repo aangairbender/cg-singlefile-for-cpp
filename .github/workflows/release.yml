@@ -37,4 +37,4 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ env.release-name }}.zip
+        files: bin/${{ env.release-name }}.zip
