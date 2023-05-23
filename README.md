@@ -68,7 +68,7 @@ Works fine. Now let's bundle this toy project into a single file:
 ```shell
 cg-singlefile-for-cpp "main.cpp" -o "bundled.cpp"
 ```
-Let's check what the tool generated for us by checking content `bundled.cpp` file:
+Let's check what the tool generated for us by checking content of `bundled.cpp` file:
 ```c++
 #include <iostream>
 int sum(int a, int b) {
