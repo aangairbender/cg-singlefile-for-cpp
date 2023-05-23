@@ -1,5 +1,6 @@
 # cg-singlefile-for-cpp
 ![Build](https://github.com/aangairbender/cg-singlefile-for-cpp/actions/workflows/build.yml/badge.svg)
+[![codecov](https://codecov.io/gh/aangairbender/cg-singlefile-for-cpp/branch/master/graph/badge.svg?token=R7LPUQGAFA)](https://codecov.io/gh/aangairbender/cg-singlefile-for-cpp)
 
 ## Getting the tool
 
